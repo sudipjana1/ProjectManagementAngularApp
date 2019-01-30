@@ -1,0 +1,127 @@
+<br>
+<section class="popular-templates-section">
+  <div class="container-fluid">
+    <div class="popular-templates-title">
+    </div>
+    <div class="popular-templates">
+      <div class="row m-0">
+        <div class="col-4 blue">
+          <div class="row m-0">
+            <div class="col-md-3 blue">Project:
+            </div>
+            <div class="col-md-6 blue">
+              <input [(ngModel)]="projectSearch" placeholder="Search" />
+            </div>
+            <div class="col-md-3 blue">
+              <div><button (click)="getProjectByName()">Search</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 blue">
+          <div class="row m-0">
+            <div class="col-10 blue">
+              <div class="row m-0">
+                <div class="col-md-3 blue">Sort Task By:
+                </div>
+                <div class="col-md-9 blue">
+                  <div class="row m-0">
+
+                    <div class="col-md-3 blue">
+                      <button (click)="getSortbyStartDate()">Start Date</button>
+                    </div>
+                    <div class="col-md-3 blue">
+                      <button (click)="getSortbyEndDate()">End Date</button>
+                    </div>
+                    <div class="col-md-3 blue">
+                      <button (click)="getSortbyPriority()">Priority</button>
+                    </div>
+                    <div class="col-md-3 blue">
+                      <button (click)="getSortbyCompleted()">Completed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 blue">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <hr size="10">
+
+      <!-- loop start -->
+      <div *ngFor="let task of tasks">
+        <div class="row m-0">
+          <div class="col-4 blue">
+            <div class="row m-0">
+              <div class="col-6 blue">
+                <ul class="list-group">
+                  <li class="list-group-item">Task</li>
+                  <li class="list-group-item">{{task.taskname}}</li>
+                </ul>
+              </div>
+              <div class="col-6 blue">
+                <ul class="list-group">
+                  <li class="list-group-item">Parent</li>
+                  <li class="list-group-item">{{task.parenttask.parenttask}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-5 black">
+            <div class="row m-0">
+              <div class="col-3 blue">
+                <ul class="list-group">
+                  <li class="list-group-item">Priority</li>
+                  <li class="list-group-item">{{task.priority}}</li>
+                </ul>
+              </div>
+              <div class="col-9 blue">
+
+                <div class="row m-0">
+                  <div class="col-6 blue">
+                    <ul class="list-group">
+                      <li class="list-group-item">Start</li>
+                      <li class="list-group-item">{{task.startdate}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-6 blue">
+                    <ul class="list-group">
+                      <li class="list-group-item">End</li>
+                      <li class="list-group-item">{{task.enddate}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 black">
+            <div class="row m-0">
+              <div class="col-2 blue">
+                <div><button  routerLink="/edit-task/{{task.taskid}}">Edit</button></div>
+              </div>
+              <div class="col-6 blue">
+                <div><button (click)="endTask(task)">End Task</button></div>
+              </div>
+              <div class="col-4 blue">
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr size="10">
+
+      </div>
+      <!-- loop end -->
+
+
+    </div>
+  </div>
+
+</section>
+
+<hr>
+
+<!-- <app-datepicker-popup [(model)]="modeldate"></app-datepicker-popup> -->
+<!-- <pre>Model: {{ modeldate | json }}</pre>
+  <pre>Model: {{ model| date:'yyyy-MM-dd' }}</pre> -->

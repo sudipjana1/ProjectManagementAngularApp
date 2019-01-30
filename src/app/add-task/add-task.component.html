@@ -1,0 +1,172 @@
+<div>
+  <h4>Task Add</h4>
+  <div [formGroup]="addTaskForm">
+    <div>
+      <div>
+
+        <label>Project:
+          <input [(ngModel)]="searchproject" disabled formControlName="project" />
+
+          <!-- Trigger the modal with a button -->
+          <button (click)="getProjects()" type="button" class="btn btn-info btn-md" data-toggle="modal" [disabled]="disableBtn" data-target="#myProjectModal">Search</button>
+          <!-- Project Modal -->
+
+        </label><br>
+      </div>
+      <div>
+        <label>Task Name:
+          <input [(ngModel)]="task.taskname" placeholder="Task Name" formControlName="taskname" />
+        </label><br>
+      </div>
+      <div>
+        <div class="slidecontainer">
+
+          <label>Task Priority: {{task.priority}}
+          </label><br>
+
+          <input [(ngModel)]="task.priority" class="slider" type="range" min="1" max="100" value="0" formControlName="taskpriority"
+          />
+        </div>
+      </div>
+      <div>
+        <label>
+          <!-- <div class="column"> -->
+          Parent Task:
+          <input [(ngModel)]="searchparent" disabled formControlName="parenttask" />
+          <button (click)="getParentTask()" type="button" class="btn btn-info btn-md" data-toggle="modal" [disabled]="disableBtn" data-target="#myParentModal">Search</button>
+
+          <!-- myParentModal Modal -->
+
+        </label><br>
+      </div>
+      <div>
+        <label class="container">
+          <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" formControlName="parenttaskcheck"
+          /> Parent Task is
+
+          <span *ngIf="marked">checked</span><span *ngIf="!marked">unchecked</span>
+
+          <span class="checkmark"></span>
+        </label>
+        <!-- <div>And <b>ngModel</b> also works, it's value is <b>{{theCheckbox}}</b></div> -->
+      </div>
+      <div>
+        <label>Start Date:
+          <input type="date" [(ngModel)]="task.startdate" placeholder="" formControlName="startdate" />
+        </label><br>
+      </div>
+      <div>
+        <label>End Date:
+          <input type="date" [(ngModel)]="task.enddate" placeholder="" formControlName="enddate" />
+        </label><br>
+      </div>
+      <div>
+        <label>
+          User :
+          <input [(ngModel)]="searchuser" disabled formControlName="user" />
+
+          <button (click)="getUsers()" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myUserModal">Search</button>
+
+          <!-- myUserModal Modal -->
+
+        </label><br>
+      </div>
+    </div>
+    <!-- <button (click)="addData()">Add Task</button> -->
+    <div class="container-fluid">
+      <!-- <div class="span4 text-left"><a href="#" class="btn">Btn1</a></div> -->
+      <div class="row m-0">
+        <div class="col-lg-3 blue"> </div>
+        <div class="col-lg-3 blue">
+          <div class="row m-0">
+            <div class="col-sm-6 blue"> <button (click)="addData()">{{buttonText}}</button> </div>
+            <div class="col-sm-6 blue"> <button (click)="resetFields()">Reset</button> </div>
+          </div>
+        </div>
+        <div class="col-lg-3 blue"> </div>
+        <div class="col-lg-3 blue"> </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Project Modal -->
+
+  <div class="modal fade" id="myProjectModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select Project</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" styles="z-index:1040;">
+          <select [(ngModel)]="projectSelected" (ngModelChange)="onAreaProjectControlChanged()">
+            <option *ngFor="let tta of projects" [ngValue]="tta">{{tta.projectname}}</option>
+          </select>
+          <p>You selected: {{projectSelected | json}}</p>
+        </div>
+        <div class="modal-footer" styles="z-index:1030;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- myParentModal Modal -->
+
+  <div class="modal fade" id="myParentModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select Parent Task</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" styles="z-index:1040;">
+
+          <select [(ngModel)]="parentTaskSelected" (ngModelChange)="onAreaParentControlChanged()">
+            <option *ngFor="let tta of parenttasks" [ngValue]="tta">{{tta.parenttask}}</option>
+          </select>
+
+
+          <p>You selected: {{parentTaskSelected | json}}</p>
+        </div>
+        <div class="modal-footer" styles="z-index:1030;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- myUserModal Modal -->
+
+
+  <div class="modal fade" id="myUserModal" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select User</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" styles="z-index:1040;">
+
+          <select [(ngModel)]="userSelected" (ngModelChange)="onAreaUserControlChanged()">
+            <option *ngFor="let tta of users" [ngValue]="tta">{{tta.firstname}}</option>
+          </select>
+
+
+          <p>You selected: {{userSelected | json}}</p>
+        </div>
+        <div class="modal-footer" styles="z-index:1030;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

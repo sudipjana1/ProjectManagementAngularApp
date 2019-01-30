@@ -1,0 +1,171 @@
+<section class="popular-templates-section">
+  <div class="container-fluid">
+    <h4>Add Project</h4>
+    <div [formGroup]="addProjectForm">
+      <div>
+        <div>
+
+          <label>Project:
+            <input [(ngModel)]="projectInp.projectname" formControlName="project" required/>
+          </label><br>
+        </div>
+        <div>
+          <label class="container">
+            <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" formControlName="parenttaskcheck"
+            /> Set Start and End Date
+
+            <span *ngIf="marked">checked</span><span *ngIf="!marked">unchecked</span>
+
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div>
+            <!-- <app-datepicker-popup [(model)]="modeldate"></app-datepicker-popup> -->
+
+            <input type="date" [(ngModel)]="projectInp.startdate" placeholder="Start Date" formControlName="startdate"
+            />
+        </div>
+        <div>
+            <input type="date" [(ngModel)]="projectInp.enddate" placeholder="End Date" formControlName="enddate" />
+        </div>
+        <div>
+          <div class="slidecontainer">
+
+            <label>Project Priority: {{projectInp.priority}}
+            </label><br>
+
+            <input [(ngModel)]="projectInp.priority" class="slider" type="range" min="1" max="100" value="10" formControlName="projectpriority"
+            />
+          </div>
+        </div>
+
+
+        <div>
+          <label>
+            Manager : 
+            <input  [ngModel]="projectManager" disabled formControlName="user" />
+            <button (click)="getUsers()" type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myUserModal">Search</button>
+
+          </label><br>
+        </div>
+      </div>
+      <!-- <button (click)="addData()">{{buttonText}}</button> -->
+      <div class="container-fluid">
+        <!-- <div class="span4 text-left"><a href="#" class="btn">Btn1</a></div> -->
+        <div class="row m-0">
+          <div class="col-lg-3 blue"> </div>
+          <div class="col-lg-3 blue">
+            <div class="row m-0">
+              <div class="col-sm-6 blue"> <button (click)="addData()">{{buttonText}}</button> </div>
+              <div class="col-sm-6 blue"> <button (click)="resetData()">Reset</button> </div>
+            </div>
+          </div>
+          <div class="col-lg-3 blue"> </div>
+          <div class="col-lg-3 blue"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr size="10">
+<section class="popular-templates-section">
+  <div class="container-fluid">
+    <div class="popular-templates-title">
+    </div>
+    <div class="popular-templates">
+      <div class="row m-0">
+        <div class="col-3 blue">
+          <!-- <input [(ngModel)]="userSearch" placeholder="Search" /> -->
+        </div>
+        <div class="col-9 blue">
+          <div class="row m-0">
+            <div class="col-9 blue">
+              <div class="row m-0">
+                <div class="col-md-4 blue">Sort By:
+                </div>
+                <div class="col-md-2 blue">
+                  <button (click)="getSortbyStartDate()">Start Date</button>
+                </div>
+                <div class="col-md-2 blue">
+                  <button (click)="getSortbyEndDate()">End Date</button>
+                </div>
+                <div class="col-md-2 blue">
+                  <button (click)="getSortbyPriority()">Priority</button>
+                </div>
+                <div class="col-md-2 blue">
+                  <button (click)="getSortbyCompleted()">Completed</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 blue">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <hr size="10">
+
+      <div *ngFor="let tta of projectdetails">
+        <div class="row m-0">
+          <div class="col-4 blue">
+            <ul class="list-group">
+              <li class="list-group-item">Project Name: {{tta.project.projectname}}</li>
+              <li class="list-group-item">No of Task:{{tta.noOfTask}}</li>
+              <li class="list-group-item">Start Date:{{tta.project.startdate}}</li>
+            </ul>
+          </div>
+          <div class="col-4 black">
+            <ul class="list-group">
+              <li class="list-group-item">Priority: {{tta.project.priority}}</li>
+              <li class="list-group-item">Completed:{{tta.completed}}</li>
+              <li class="list-group-item">End date:{{tta.project.enddate}}</li>
+            </ul>
+          </div>
+          <div class="col-4 black">
+
+            <div class="row">
+              <div><button (click)="editProject(tta)">Edit</button></div>
+            </div>
+            <div class="row">
+              <br>
+            </div>
+            <div class="row">
+              <div><button (click)="deleteProject(tta)">Delete</button></div>
+            </div>
+          </div>
+        </div>
+        <hr size="10">
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<hr>
+
+<!-- <app-datepicker-popup [(model)]="modeldate"></app-datepicker-popup> -->
+<!-- <pre>Model: {{ modeldate | json }}</pre>
+<pre>Model: {{ model| date:'yyyy-MM-dd' }}</pre> -->
+
+<div class="modal fade" id="myUserModal" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Select Manager</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <select [(ngModel)]="userSelected"  (ngModelChange)="onAreaUserControlChanged()">
+            <option *ngFor="let tta of users" [ngValue]="tta">{{tta.firstname}}</option>
+          </select>
+          <p>You selected: {{userSelected | json}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

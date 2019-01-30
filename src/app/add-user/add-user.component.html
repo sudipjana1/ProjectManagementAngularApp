@@ -1,0 +1,119 @@
+<section class="popular-templates-section">
+  <div class="container-fluid">
+    <h4>Add User</h4>
+    <div [formGroup]="addUserForm">
+      <div>
+
+        <div>
+          <label>First Name:
+            <input [(ngModel)]="taskuser.firstname" placeholder="First Name" formControlName="firstname" />
+          </label><br>
+        </div>
+        <div>
+          <label>Last Name:
+            <input [(ngModel)]="taskuser.lastname" placeholder="Last Name" formControlName="lastname" />
+          </label><br>
+        </div>
+        <div>
+          <label>Employee Id:
+            <input [(ngModel)]="taskuser.employeeid" placeholder="id" formControlName="employeeid" />
+          </label><br>
+        </div>
+
+      </div>
+      <!-- <button (click)="addData()">Add User</button>
+    <button (click)="addData()">Reset</button> -->
+      <div class="container-fluid">
+        <!-- <div class="span4 text-left"><a href="#" class="btn">Btn1</a></div> -->
+        <div class="row m-0">
+          <div class="col-lg-3 blue"> </div>
+          <div class="col-lg-3 blue">
+            <div class="row m-0">
+              <div class="col-sm-6 blue"> <button (click)="addData()">{{buttonText}}</button> </div>
+              <div class="col-sm-6 blue"> <button (click)="resetUser()">Reset</button> </div>
+            </div>
+          </div>
+          <div class="col-lg-3 blue"> </div>
+          <div class="col-lg-3 blue"> </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<hr size="10">
+<section class="popular-templates-section">
+  <div class="container-fluid">
+    <div class="popular-templates-title">
+    </div>
+    <div class="popular-templates">
+      <div class="row m-0">
+        <div class="col-3 blue">
+          <div class="row m-0">
+            <div class="col-9 blue">
+              <input [(ngModel)]="userSearch" placeholder="employeeid" />
+            </div>
+            <div class="col-9 blue">
+                <button (click)="getByEmployeeId()">Search</button>
+              </div>
+          </div>
+        </div>
+        <div class="col-9 blue">
+          <div class="row m-0">
+            <div class="col-9 blue">
+              <div class="row m-0">
+                <div class="col-md-3 blue">Sort:
+                </div>
+                <div class="col-md-3 blue">
+                  <button (click)="getSortbyFirstName()">First Name</button>
+                </div>
+                <div class="col-md-3 blue">
+                  <button (click)="getSortbyLastName()">Last Name</button>
+                </div>
+                <div class="col-md-3 blue">
+                  <button (click)="getSortbyEmployeeId()">ID </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 blue">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <hr size="10">
+
+      <div *ngFor="let tta of users">
+        <div class="row m-0">
+          <div class="col-6 blue">
+            <ul class="list-group">
+              <li class="list-group-item">First Name: {{tta.firstname}}</li>
+              <li class="list-group-item">Last Name:{{tta.lastname}}</li>
+              <li class="list-group-item">Employee ID:{{tta.employeeid}}</li>
+            </ul>
+          </div>
+          <div class="col-3 black">
+            <div class="row">
+              <div><button (click)="editUser(tta)">Edit</button></div>
+            </div>
+            <div class="row">
+              <br>
+            </div>
+            <div class="row">
+              <div><button (click)="deleteUser(tta)">Delete</button></div>
+            </div>
+          </div>
+          <div class="col-3 black">
+            <!-- <div class="template-img">
+            <img src="assets/images/template-thumb/template-1.jpg" alt="">
+          </div> -->
+          </div>
+        </div>
+        <hr size="10">
+
+      </div>
+    </div>
+  </div>
+
+</section>
